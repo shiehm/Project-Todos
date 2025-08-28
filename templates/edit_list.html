@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block header_links %}
+  <a class="list" href="{{ url_for('get_lists') }}">All Lists</a>
+{% endblock %}
+
+{% block content %}
+  <section id="todos">
+    <header>
+        <h2>Editing '{{ lst.title }}'</h2>
+        <ul>
+          <li>
+            <form class="delete" 
+                  action="{{ url_for('delete_list', list_id=lst.id) }}" 
+                  method="post">
+              <button class="delete" type="submit">Delete List</button>
+            </form>
+          </li>
+        </ul>
+    </header>
+  </section>
+
+  <form action="/lists/{{ lst.id }}" method="post">
+    <dl>
+      <dt>
+        <label for="list_title">Enter a new list title:</label>
+      </dt>
+      <dd>
+        <input type="text" name="list_title" placeholder="{{ lst.title }}" type="text" 
+               value="{{ title if title is defined else lst.title }}">
+      </dd>
+    </dl>
+    <fieldset class="actions">
+      <input type="submit" value="Save">
+      <a href="{{ url_for('rename_list', list_id=lst.id) }}">Cancel</a>
+    </fieldset>
+  </form>
+{% endblock %}
