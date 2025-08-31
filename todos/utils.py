@@ -25,3 +25,20 @@ def mark_all_completed(lst):
     for todo in lst['todos']:
         todo['completed'] = True
     return None
+
+def todos_remaining(lst):
+    return sum(1 for todo in lst['todos'] if not todo['completed'])
+
+def is_list_completed(lst):
+    return len(lst['todos']) > 0 and todos_remaining(lst) == 0
+
+def is_todo_completed(todo):
+    return todo['completed']
+
+def sort_items(items, is_completed):
+    sorted_items = sorted(items, key=lambda item: item['title'].lower())
+
+    incomplete_items = [item for item in items if not is_completed(item)]
+    complete_items = [item for item in items if is_completed(item)]
+    
+    return incomplete_items + complete_items

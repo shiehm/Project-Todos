@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <section id="todos">
+  <section id="todos" class="{{ 'complete' if is_list_completed(lst) else '' }}">
     <header>
       <h2>{{ lst.title }}</h2>
       <ul>
@@ -19,7 +19,7 @@
     <ul>
       {% for todo in lst.todos %}
         <li class="{{'complete' if todo.completed else ''}}">
-          <form action="{{ url_for('toggle_todo', list_id=lst.id, todo_id=todo.id) }}" method="post" class="check"></form>
+          <form action="{{ url_for('toggle_todo', list_id=lst.id, todo_id=todo.id) }}" method="post" class="check">
             <input type="hidden" name="completed" value="{{ not todo.completed }}"/>
             <button type="submit">Complete</button>
           </form>
