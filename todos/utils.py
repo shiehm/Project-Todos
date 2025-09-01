@@ -36,9 +36,4 @@ def is_todo_completed(todo):
     return todo['completed']
 
 def sort_items(items, is_completed):
-    sorted_items = sorted(items, key=lambda item: item['title'].lower())
-
-    incomplete_items = [item for item in items if not is_completed(item)]
-    complete_items = [item for item in items if is_completed(item)]
-    
-    return incomplete_items + complete_items
+    return sorted(items, key=lambda item: (is_completed(item), item['title'].lower()))
